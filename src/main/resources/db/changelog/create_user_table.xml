@@ -1,0 +1,40 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                   http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="Alex Zhang" id="20230202-1">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="USER_ID" type="INT">
+                <constraints primaryKey="true" unique="true"/>
+            </column>
+            <column name="USER_NAME" type="VARCHAR(20)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="PASSWORD" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROLE_ID" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTIVE" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMAIL" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_DATE" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EXP_TIME" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

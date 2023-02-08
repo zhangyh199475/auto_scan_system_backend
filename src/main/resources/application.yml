@@ -1,0 +1,9 @@
+spring:
+  liquibase:
+    # 不配置默认会查找'classpath:/db/master.xml'文件
+    change-log: 'classpath:/db/changelog/master.xml'
+
+swagger:
+  base-package: org.pengcheng.auto_scan_system_backend.controller
+  title: Auto scan system backend Api
+  version: 1.0
