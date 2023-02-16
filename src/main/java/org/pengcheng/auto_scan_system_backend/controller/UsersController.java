@@ -22,7 +22,7 @@ public class UsersController {
         return new ResponseEntity(users, HttpStatus.OK);
     }
 
-    @GetMapping("/getUserByUserId")
+    @GetMapping("/getUserByUserId/{userId}")
     public ResponseEntity<Users> getUserByUserId(@PathVariable int userId){
         Users users = this.usersService.getUserByUserId(userId);
         return new ResponseEntity(users, HttpStatus.OK);
