@@ -1,35 +1,39 @@
 package org.pengcheng.auto_scan_system_backend.handler;
 
-import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioSocketChannel;
-import org.pengcheng.auto_scan_system_backend.config.RobotInitializer;
-import org.springframework.beans.factory.annotation.Value;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.util.ReferenceCountUtil;
+import org.pengcheng.auto_scan_system_backend.domain.BRTRobot;
+import org.springframework.stereotype.Service;
 
-public class BRTRobotHandler {
+@Service
+public class BRTRobotHandler extends SimpleChannelInboundHandler<byte[]> {
 
-    private Channel channel;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
-    @Value("robot.ip")
-    private String robotAddress;
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, byte[] msg) throws Exception {
+        // Deserialize the incoming JSON message
+        BRTRobot brtRobot = objectMapper.readValue(msg, BRTRobot.class);
+        System.out.println("服务器收到消息: " + brtRobot.getCmdReply());
+        ReferenceCountUtil.retain(brtRobot);
+        ctx.fireChannelRead(brtRobot);
+    }
 
-    @Value("robot.port")
-    private int robotPort;
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        // Log any exceptions that occur during communication
+        cause.printStackTrace();
+        ctx.close();
+    }
 
-    public BRTRobotHandler() {
-        EventLoopGroup group = new NioEventLoopGroup();
-        try {
-            Bootstrap bootstrap = new Bootstrap()
-                    .group(group)
-                    .channel(NioSocketChannel.class)
-                    .handler(new RobotInitializer());
-            channel = bootstrap.connect(robotAddress, robotPort).sync().channel();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            group.shutdownGracefully();
-        }
+    public void sendCommand(ChannelHandlerContext ctx, BRTRobot brtRobot) throws JsonProcessingException {
+        // Serialize the outgoing JSON message
+        byte[] msg = objectMapper.writeValueAsBytes(brtRobot);
+        System.out.println("服务器发送消息: " + brtRobot.getDsID());
+        // Write the message to the channel
+        ctx.writeAndFlush(msg);
     }
 }
