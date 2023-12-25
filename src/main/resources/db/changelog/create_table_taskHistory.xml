@@ -1,0 +1,69 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                   http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="Alex Zhang" id="21456131564-1">
+        <createTable tableName="task_history">
+            <column name="TASK_ID" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" unique="true"/>
+            </column>
+            <column name="USER_ID" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="TYPE" type="VARCHAR(45)">
+            </column>
+            <column name="STATE" type="VARCHAR(45)">
+            </column>
+            <column name="SAVE_FILE" type="VARCHAR(45)">
+            </column>
+            <column name="SEND_EMAIL" type="VARCHAR(45)">
+            </column>
+            <column name="ANGLE_POSITION" type="DOUBLE">
+            </column>
+            <column name="X_POSITION" type="DOUBLE">
+            </column>
+            <column name="Y_POSITION" type="DOUBLE">
+            </column>
+            <column name="Z_POSITION" type="DOUBLE">
+            </column>
+            <column name="U_POSITION" type="DOUBLE">
+            </column>
+            <column name="V_POSITION" type="DOUBLE">
+            </column>
+            <column name="W_POSITION" type="DOUBLE">
+            </column>
+            <column name="SCAN_SURFACE" type="VARCHAR(45)">
+            </column>
+            <column name="S_PARA" type="VARCHAR(45)">
+            </column>
+            <column name="A_MIN" type="DOUBLE">
+            </column>
+            <column name="A_MAX" type="DOUBLE">
+            </column>
+            <column name="A_STEP" type="DOUBLE">
+            </column>
+            <column name="B_MIN" type="DOUBLE">
+            </column>
+            <column name="B_MAX" type="DOUBLE">
+            </column>
+            <column name="B_STEP" type="DOUBLE">
+            </column>
+            <column name="FREQ_MIN" type="DOUBLE">
+            </column>
+            <column name="FREQ_MAX" type="DOUBLE">
+            </column>
+            <column name="FREQ_STEP" type="DOUBLE">
+            </column>
+            <column name="CREATED_TIME" type="datetime">
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(45)">
+            </column>
+            <column name="FINISH_DATE" type="datetime">
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

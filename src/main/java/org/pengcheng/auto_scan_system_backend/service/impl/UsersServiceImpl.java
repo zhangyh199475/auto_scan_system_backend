@@ -23,7 +23,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public List<Users> getUsersList(Users users) {
+    public List<Users> getUsersList() {
         return this.usersRepository.findAll();
     }
 
@@ -52,8 +52,8 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Users login(String userName) {
-        Users users = this.usersRepository.findUsersByUserName(userName);
+    public Users login(String userName, String password) {
+        Users users = this.usersRepository.login(userName, password);
         return users;
     }
 }

@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface UsersService {
     Users getUserByUserId(int userId);
-    List<Users> getUsersList(Users users);
+    List<Users> getUsersList();
     Users addUser(Users users);
     Users updateUser(Users users);
     Users deleteUser(int userId);
-    Users login(String userName);
+    Users login(String userName, String password);
 }
